@@ -10,8 +10,24 @@ int main()
 	// массив пр€моугольников
 	const int size = 150;
 	RectangleShape* stars = new RectangleShape[size];
-	
-	
+	for (int i = 0; i < size; i++) {
+		//вычисл€ем координаты начала линии-пр€моугольника
+		float x = rand() % 600;
+		float y = rand() % 600;
+
+		//создаем пр€моугольник длиной 450 и толщиной 1
+		RectangleShape star(Vector2f(1.f, 1.f));
+		//перемещаем в начало
+		star.move(x, y);
+		//поворачиваем на нужный угол
+		star.rotate((float)(atan2(y - 300, x - 300) * 180 / 3.1416f));
+		//записываем в массив
+		stars[i] = star;
+		window.draw(stars[i]);
+	}
+	window.display();
+	while (clock.getElapsedTime().asMilliseconds() < 1000) {}
+
 	while (clock.getElapsedTime().asMilliseconds() < 5000)
 	{
 		// ќбрабатываем очередь событий в цикле
@@ -23,25 +39,6 @@ int main()
 				// тогда закрываем его
 				window.close();
 		}
-		for (int i = 0; i < size; i++) {
-			//вычисл€ем координаты начала линии-пр€моугольника
-			float x = rand() % 600;
-			float y = rand() % 600;
-
-			//создаем пр€моугольник длиной 450 и толщиной 1
-			RectangleShape star(Vector2f(1.f, 1.f));
-			//перемещаем в начало
-			star.move(x, y);
-			//поворачиваем на нужный угол
-			star.rotate((float)(atan2(y - 300, x - 300) * 180 / 3.1416f));
-			//записываем в массив
-			stars[i] = star;
-			window.draw(stars[i]);
-		}
-		window.display();
-
-		while (clock.getElapsedTime().asMilliseconds() < 1000) {}
-
 		for (int i = 0; i < size; i++) {
 			float len = rand() % 200 + 10;
 			stars[i].setSize(Vector2f(len, 1.f));
